@@ -26,13 +26,15 @@ public class Rescate implements Runnable {
 
                 for (int i = 1; i <= 4; i++) {
                     for (int j = 0; j < barco.getPasajeros().size(); j++) {
-                        Pasajero p = barco.getPasajeros().get(j);
-                        if (capacidadActual < balsa.getCapacidad() && p.getPrioridad() == i) {
-                            rescatadosEnViaje.add(p);
+                        if(barco.hayPasajeros()) {
+                            Pasajero p = barco.getPasajeros().get(j);
+                            if (capacidadActual < balsa.getCapacidad() && p.getPrioridad() == i) {
+                                rescatadosEnViaje.add(p);
 
-                            capacidadActual++;
+                                capacidadActual++;
 
-                            barco.getPasajeros().remove(p);
+                                barco.getPasajeros().remove(p);
+                            }
                         }
                     }
                 }
@@ -45,7 +47,11 @@ public class Rescate implements Runnable {
                     }
                     System.out.println("");
 
+                }else {
+                    System.out.println("Todos los pasajeros han sido rescatados, pasajeros restantes en el barco: "+barco.getPasajeros().size());
                 }
+
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
