@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.Semaphore;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -11,10 +12,10 @@ public class Main {
 
         //creamos las balsas
         Balsa Acasta = new Balsa("Acasta",1,0.5);
-        Balsa Banff	 = new Balsa("Banff",2,1);
-        Balsa Cadiz	 = new Balsa("Cadiz",3,2);
-        Balsa Deimos	 = new Balsa("Deimos",4,4);
-        Balsa Expedicion	 = new Balsa("Expedicion",5,8);
+        Balsa Banff     = new Balsa("Banff",2,1);
+        Balsa Cadiz     = new Balsa("Cadiz",3,2);
+        Balsa Deimos     = new Balsa("Deimos",4,4);
+        Balsa Expedicion     = new Balsa("Expedicion",5,8);
 
         //Bucle para crear los 352 pasajeros de forma aleatoria
         for (int i = 0; i < 352; i++) {
@@ -27,13 +28,15 @@ public class Main {
         Barco barco = new Barco(pasajeros);
 
 
+        //Crear semaforo
+        Semaphore semaphore=new Semaphore(1);
 
         //Crear rescates
-        Rescate rescate1= new Rescate(Acasta,barco);
-        Rescate rescate2= new Rescate(Banff,barco);
-        Rescate rescate3= new Rescate(Cadiz,barco);
-        Rescate rescate4= new Rescate(Deimos,barco);
-        Rescate rescate5= new Rescate(Expedicion,barco);
+        Rescate rescate1= new Rescate(Acasta,barco,semaphore);
+        Rescate rescate2= new Rescate(Banff,barco,semaphore);
+        Rescate rescate3= new Rescate(Cadiz,barco,semaphore);
+        Rescate rescate4= new Rescate(Deimos,barco,semaphore);
+        Rescate rescate5= new Rescate(Expedicion,barco,semaphore);
 
 
         //Crear el hilo de rescates
